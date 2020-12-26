@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMoney.DataAccess.Lib.Models;
 using CMoney.DataAccess.Lib.UnitOfWork;
 using CMoney.Service.Lib.CrawlServices;
 using CMoney.Service.Lib.DTO.ApiRequestDTO;
@@ -100,26 +101,69 @@ namespace CMoney.WebApi.Controllers
                 };
             }
 
-            //懶得建立ViewModel，先用 Anonymous type 假裝一下
+            //懶得建立 ViewModel，先用 Anonymous type 假裝一下
             var rangeDate = DateTime.Today.AddDays(-request.Days);
             var data = _singleStockService.GetAll(r => r.SecuritiesCode == request.Code && r.ByDate >= rangeDate)
-                .Select(r => new
-                {
-                    Code = r.SecuritiesCode,
-                    Name = r.SecuritiesName,
-                    YieldRate = r.YieldRate,
-                    DividendYear = r.DividendYear,
-                    Peratio = r.Peratio,
-                    PriceRatio = r.PriceRatio,
-                    FinancialYear = r.FinancialYear,
-                    Date = r.ByDate
-                }).ToList();
+                .Select(Selector()).ToList();
 
             return new ApiResult()
             {
                 Code = ApiResultCode.Success,
                 Data = data,
                 Message = "查詢成功"
+            };
+        }
+
+
+
+        /// <summary>
+        /// 指定特定日期 顯示當天本益比前 n 名
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetDataByPeRatio")]
+        public ApiResult GetDataByPeRatio(GetDataByPeRatioRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new ApiResult()
+                {
+                    Code = ApiResultCode.BadRequest,
+                    Message = "日期與排名欄位必填"
+                };
+            }
+
+            var data = _singleStockService
+                .GetAll(filter: r => r.ByDate == request.Date,
+                    orderBy: x => x.OrderByDescending(c => c.Peratio))
+                .Take(request.TopN)
+                .Select(Selector()).ToList();
+
+            return new ApiResult()
+            {
+                Code = ApiResultCode.Success,
+                Data = data,
+                Message = "查詢成功"
+            };
+        }
+
+        /// <summary>
+        /// func delegate，兩個 Action 共用，extract method
+        /// </summary>
+        /// <returns></returns>
+        private static Func<SingleStock, object> Selector()
+        {
+            return r => new
+            {
+                Code = r.SecuritiesCode,
+                Name = r.SecuritiesName,
+                YieldRate = r.YieldRate,
+                DividendYear = r.DividendYear,
+                Peratio = r.Peratio,
+                PriceRatio = r.PriceRatio,
+                FinancialYear = r.FinancialYear,
+                Date = r.ByDate
             };
         }
     }
