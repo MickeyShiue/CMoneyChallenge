@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CMoney.DataAccess.Lib.Models;
 using CMoney.DataAccess.Lib.UnitOfWork;
 using CMoney.Service.Lib.CrawlServices;
 using CMoney.Service.Lib.DTO.ApiRequestDTO;
+using CMoney.Service.Lib.Helper;
 using CMoney.Service.Lib.SingleStockServices;
 using CMoney.WebApi.Infrastructure.CustomResult;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -144,6 +143,44 @@ namespace CMoney.WebApi.Controllers
             {
                 Code = ApiResultCode.Success,
                 Data = data,
+                Message = "查詢成功"
+            };
+        }
+
+        /// <summary>
+        /// 指定日期範圍、證券代號 顯示這段時間內殖利率 為嚴格遞增的最長天數並顯示開始、結束日期
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetDataByYieldRate")]
+        public ApiResult GetDataByYieldRate(GetDataByYieldRateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new ApiResult()
+                {
+                    Code = ApiResultCode.BadRequest,
+                    Message = "證券代號與日期範圍必填"
+                };
+            }
+
+            var data = _singleStockService.GetAll(filter: r => r.SecuritiesCode == request.SecuritiesCode &&
+                                                               r.ByDate >= request.StartDate &&
+                                                               r.ByDate <= request.EndDate,
+                                                  orderBy: x => x.OrderBy(c => c.ByDate)).ToList();
+
+            var pointResult = StrictlyHelper.StrictlyIncreasing(data.Select(r => r.YieldRate).ToList());
+
+            return new ApiResult()
+            {
+                Code = ApiResultCode.Success,
+                Data = new
+                {
+                    securitiesCode = request.SecuritiesCode,
+                    startDay = data[pointResult.lowPoint].ByDate,
+                    endDay = data[pointResult.highPoint].ByDate,
+                    continueDays = (pointResult.highPoint - pointResult.lowPoint) + 1 //後 - 前 +1
+                },
                 Message = "查詢成功"
             };
         }
