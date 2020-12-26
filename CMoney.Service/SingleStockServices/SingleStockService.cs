@@ -11,11 +11,9 @@ namespace CMoney.Service.Lib.SingleStockServices
     public class SingleStockService : ISingleStockService
     {
         private readonly IRepository<SingleStock> _singleStockRepository;
-        private readonly CmoneyContext _context;
 
-        public SingleStockService(CmoneyContext context, IRepository<SingleStock> singleStockRepository)
+        public SingleStockService(IRepository<SingleStock> singleStockRepository)
         {
-            this._context = context;
             this._singleStockRepository = singleStockRepository;
         }
 
