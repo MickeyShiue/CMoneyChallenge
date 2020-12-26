@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CMoney.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:CMoney.WebApi.Controllers.TaiwanStockExchangeController">
+            <summary>
+            臺灣證券交易所 Controller
+            </summary>
+        </member>
+        <member name="M:CMoney.WebApi.Controllers.TaiwanStockExchangeController.#ctor(CMoney.Service.Lib.CrawlServices.ICrawlService,CMoney.Service.Lib.SingleStockServices.ISingleStockService,CMoney.DataAccess.Lib.UnitOfWork.IUnitOfWork,Microsoft.Extensions.Logging.ILogger{CMoney.WebApi.Controllers.TaiwanStockExchangeController})">
+            <summary>
+            建構式
+            </summary>
+        </member>
+        <member name="M:CMoney.WebApi.Controllers.TaiwanStockExchangeController.ImportDataByDate(CMoney.Service.Lib.DTO.ApiRequestDTO.ImportDataByDateRequest)">
+            <summary>
+            匯入資料
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CMoney.WebApi.Controllers.TaiwanStockExchangeController.GetDataBySecuritiesCode(CMoney.Service.Lib.DTO.ApiRequestDTO.GetDataBySecuritiesCodeRequest)">
+            <summary>
+            依照證券代號 搜尋最近 n 天的資料
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CMoney.WebApi.Controllers.TaiwanStockExchangeController.GetDataByPeRatio(CMoney.Service.Lib.DTO.ApiRequestDTO.GetDataByPeRatioRequest)">
+            <summary>
+            指定特定日期 顯示當天本益比前 n 名
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CMoney.WebApi.Controllers.TaiwanStockExchangeController.GetDataByYieldRate(CMoney.Service.Lib.DTO.ApiRequestDTO.GetDataByYieldRateRequest)">
+            <summary>
+            指定日期範圍、證券代號 顯示這段時間內殖利率 為嚴格遞增的最長天數並顯示開始、結束日期
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CMoney.WebApi.Controllers.TaiwanStockExchangeController.Selector">
+            <summary>
+            func delegate，兩個 Action 共用，extract method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CMoney.WebApi.Infrastructure.CustomResult.ApiResult">
+            <summary>
+            WebApi回覆前端呼叫時，乘載回傳資訊的類別
+            </summary>
+        </member>
+        <member name="T:CMoney.WebApi.Infrastructure.CustomResult.ApiResult`1">
+            <summary>
+            WebApi回覆前端呼叫時，乘載回傳資訊的類別
+            </summary>
+        </member>
+        <member name="P:CMoney.WebApi.Infrastructure.CustomResult.ApiResult`1.Code">
+            <summary>
+            回傳的結果
+            </summary>
+        </member>
+        <member name="P:CMoney.WebApi.Infrastructure.CustomResult.ApiResult`1.Data">
+            <summary>
+            回傳資料主體
+            </summary>
+        </member>
+        <member name="P:CMoney.WebApi.Infrastructure.CustomResult.ApiResult`1.Message">
+            <summary>
+            回傳的訊息
+            </summary>
+        </member>
+        <member name="T:CMoney.WebApi.Infrastructure.CustomResult.ApiResultCode">
+            <summary>
+            參照 HTTP Stats Code 為主，如果有需要客制，請於 600 後開始擴充
+            </summary>
+        </member>
+        <member name="F:CMoney.WebApi.Infrastructure.CustomResult.ApiResultCode.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:CMoney.WebApi.Infrastructure.CustomResult.ApiResultCode.Created">
+            <summary>
+            已新增
+            </summary>
+        </member>
+        <member name="F:CMoney.WebApi.Infrastructure.CustomResult.ApiResultCode.BadRequest">
+            <summary>
+            無法理解請求
+            </summary>
+        </member>
+        <member name="F:CMoney.WebApi.Infrastructure.CustomResult.ApiResultCode.Unauthorized">
+            <summary>
+            未驗證
+            </summary>
+        </member>
+        <member name="F:CMoney.WebApi.Infrastructure.CustomResult.ApiResultCode.Forbidden">
+            <summary>
+            未授權
+            </summary>
+        </member>
+        <member name="F:CMoney.WebApi.Infrastructure.CustomResult.ApiResultCode.NotFound">
+            <summary>
+            找不到資源
+            </summary>
+        </member>
+        <member name="F:CMoney.WebApi.Infrastructure.CustomResult.ApiResultCode.InternalServerError">
+            <summary>
+            伺服器端發生未知或無法處理的錯誤，程式爆錯
+            </summary>
+        </member>
+    </members>
+</doc>

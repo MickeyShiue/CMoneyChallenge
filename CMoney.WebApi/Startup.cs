@@ -32,6 +32,7 @@ namespace CMoney.WebApi
             services.AddScoped<ISingleStockService, SingleStockService>();
             services.AddScoped<ICrawlService, CrawlService>();
             services.AddHttpClient();
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +48,9 @@ namespace CMoney.WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {
