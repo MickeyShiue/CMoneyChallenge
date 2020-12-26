@@ -49,7 +49,7 @@ namespace CMoney.WebApi.Controllers
         public async Task<ApiResult> ImportDataByDate(ImportDataByDateRequest request)
         {
             var apiResult = new ApiResult();
-            if (!ModelState.IsValid || !request.Validator())
+            if (!ModelState.IsValid || !request.CustomValidator())
             {
                 apiResult.Code = ApiResultCode.BadRequest;
                 apiResult.Message = "日期格式有誤，請確認";
@@ -80,6 +80,47 @@ namespace CMoney.WebApi.Controllers
             apiResult.Code = ApiResultCode.Created;
             apiResult.Message = "資料匯入成功";
             return apiResult;
+        }
+
+        /// <summary>
+        /// 依照證券代號 搜尋最近 n 天的資料
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetDataBySecuritiesCode")]
+        public ApiResult GetDataBySecuritiesCode(GetDataBySecuritiesCodeRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new ApiResult()
+                {
+                    Code = ApiResultCode.BadRequest,
+                    Message = "證券代號與最近天數必填"
+                };
+            }
+
+            //懶得建立ViewModel，先用 Anonymous type 假裝一下
+            var rangeDate = DateTime.Today.AddDays(-request.Days);
+            var data = _singleStockService.GetAll(r => r.SecuritiesCode == request.Code && r.ByDate >= rangeDate)
+                .Select(r => new
+                {
+                    Code = r.SecuritiesCode,
+                    Name = r.SecuritiesName,
+                    YieldRate = r.YieldRate,
+                    DividendYear = r.DividendYear,
+                    Peratio = r.Peratio,
+                    PriceRatio = r.PriceRatio,
+                    FinancialYear = r.FinancialYear,
+                    Date = r.ByDate
+                }).ToList();
+
+            return new ApiResult()
+            {
+                Code = ApiResultCode.Success,
+                Data = data,
+                Message = "查詢成功"
+            };
         }
     }
 }

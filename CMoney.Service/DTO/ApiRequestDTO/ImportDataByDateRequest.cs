@@ -14,7 +14,11 @@ namespace CMoney.Service.Lib.DTO.ApiRequestDTO
         [Required]
         public DateTime Date { get; set; }
 
-        public bool Validator()
+        /// <summary>
+        /// 驗證日期不能大於今天
+        /// </summary>
+        /// <returns></returns>
+        public bool CustomValidator()
         {
             if (this.Date.Date > DateTime.Today) return false;
             return true;
