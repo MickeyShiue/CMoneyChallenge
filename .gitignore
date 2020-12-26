@@ -1,3 +1,5 @@
 CMoney.DataAccess/obj/
 CMoney.Service/obj/
 CMoney.WebApi/obj/
+CMoney.DataAccess/bin/
+CMoney.WebApi/.vs/
