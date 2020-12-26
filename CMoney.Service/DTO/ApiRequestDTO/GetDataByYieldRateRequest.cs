@@ -6,7 +6,7 @@ namespace CMoney.Service.Lib.DTO.ApiRequestDTO
     /// <summary>
     /// 指定日期範圍、證券代號 顯示這段時間內殖利率 為嚴格遞增的最長天數並顯示開始、結束日期 Request
     /// </summary>
-    public class GetDataByYieldRateRequest
+    public class GetDataByYieldRateRequest : ICustomValidator
     {
         /// <summary>
         /// 證券代號
@@ -25,5 +25,13 @@ namespace CMoney.Service.Lib.DTO.ApiRequestDTO
         /// </summary>
         [Required]
         public DateTime EndDate { get; set; }
+
+        public bool CustomValidator()
+        {
+            if (this.EndDate > this.StartDate)
+                throw new Exception("結束日不能大於起始日");
+
+            return true;
+        }
     }
 }

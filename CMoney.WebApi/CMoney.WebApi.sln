@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMoney.DataAccess.Lib", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMoney.Service.Lib", "..\CMoney.Service\CMoney.Service.Lib.csproj", "{095BD862-2763-4F40-A81B-149843016ECE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMoney.Service.lib.Tests", "..\CMoney.Service.lib.Tests\CMoney.Service.lib.Tests.csproj", "{13587FB0-B4B2-457E-A809-664A1F6F29BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{095BD862-2763-4F40-A81B-149843016ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{095BD862-2763-4F40-A81B-149843016ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{095BD862-2763-4F40-A81B-149843016ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13587FB0-B4B2-457E-A809-664A1F6F29BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13587FB0-B4B2-457E-A809-664A1F6F29BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13587FB0-B4B2-457E-A809-664A1F6F29BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13587FB0-B4B2-457E-A809-664A1F6F29BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

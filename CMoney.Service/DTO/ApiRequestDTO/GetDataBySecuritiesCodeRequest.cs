@@ -6,7 +6,7 @@ namespace CMoney.Service.Lib.DTO.ApiRequestDTO
     /// <summary>
     /// 依照證券代號 搜尋最近 n 天的資料 Request
     /// </summary>
-    public class GetDataBySecuritiesCodeRequest
+    public class GetDataBySecuritiesCodeRequest : ICustomValidator
     {
         /// <summary>
         /// 證券代號

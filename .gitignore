@@ -5,3 +5,5 @@ CMoney.DataAccess/bin/
 CMoney.WebApi/.vs/
 CMoney.Service/bin/
 *.config
+CMoney.Service.lib.Tests/bin/
+CMoney.Service.lib.Tests/obj/

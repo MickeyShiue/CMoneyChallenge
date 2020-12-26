@@ -6,7 +6,7 @@ namespace CMoney.Service.Lib.DTO.ApiRequestDTO
     /// <summary>
     /// 匯入資料 Request
     /// </summary>
-    public class ImportDataByDateRequest
+    public class ImportDataByDateRequest: ICustomValidator
     {
         /// <summary>
         /// 需要匯入資料的日期
@@ -20,7 +20,9 @@ namespace CMoney.Service.Lib.DTO.ApiRequestDTO
         /// <returns></returns>
         public bool CustomValidator()
         {
-            if (this.Date.Date > DateTime.Today) return false;
+            if (this.Date.Date > DateTime.Today)
+                throw new Exception("匯入資料的日期不能是未來日期");
+
             return true;
         }
     }
