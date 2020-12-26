@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using CMoney.DataAccess.Lib.Interface;
 using CMoney.DataAccess.Lib.Models;
+using CMoney.Service.Lib.DTO.ApiRequestDTO;
 
 namespace CMoney.Service.Lib.SingleStockServices
 {
@@ -27,6 +28,11 @@ namespace CMoney.Service.Lib.SingleStockServices
         public void Create(IEnumerable<SingleStock> singleStocks)
         {
             this._singleStockRepository.CreateRange(singleStocks);
+        }
+
+        public bool IsExist(ImportDataByDateRequest request)
+        {
+            return this._singleStockRepository.Find(r => r.ByDate == request.Date).Any();
         }
     }
 }

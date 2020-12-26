@@ -13,7 +13,7 @@ namespace CMoney.DataAccess.Lib.Models
         /// 證券代號
         /// </summary>
         [Required]
-        [StringLength(4)]
+        [StringLength(10)]
         public string SecuritiesCode { get; set; }
         /// <summary>
         /// 證券名稱
@@ -44,7 +44,7 @@ namespace CMoney.DataAccess.Lib.Models
         /// 財報年度
         /// </summary>
         [Required]
-        [StringLength(4)]
+        [StringLength(10)]
         public string FinancialYear { get; set; }
         /// <summary>
         /// 資料日期

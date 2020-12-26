@@ -5,11 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CMoney.DataAccess\CMoney.DataAccess.Lib.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
+    <ProjectReference Include="..\CMoney.DataAccess\CMoney.DataAccess.Lib.csproj" />
   </ItemGroup>
 
 </Project>
