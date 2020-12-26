@@ -3,3 +3,5 @@ CMoney.Service/obj/
 CMoney.WebApi/obj/
 CMoney.DataAccess/bin/
 CMoney.WebApi/.vs/
+CMoney.Service/bin/
+*.config

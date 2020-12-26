@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using System.Configuration;
 
 namespace CMoney.DataAccess.Lib.Models
 {
@@ -8,8 +9,7 @@ namespace CMoney.DataAccess.Lib.Models
         public CmoneyContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<CmoneyContext>();
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=CMoney;Integrated Security=True");
-
+            optionsBuilder.UseSqlServer(ConfigurationManager.AppSettings["DefaultConnectionString"]);
             return new CmoneyContext(optionsBuilder.Options);
         }
     }
